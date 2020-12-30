@@ -63,3 +63,18 @@ body {
 .input-box #btn:active {
     background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
 }
+
+.input-box .copy{
+    
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 64px;
+    right: 15px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.input-box .copy:hover {
+    opacity: 1;
+}
