@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Image Preview File Upload</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            font-size: 12px;
+            font-family: sans-serif;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin: 30px;
+            color:rgba(59, 214, 214, 0.739);
+        }
+        hr {
+            margin: 27px;
+            color: #cccccc;
+            font-size: 0.4em;
+        }
+        input {
+            margin: 30px;
+        }
+        .image-preview{
+            width: 300px;
+            min-height: 100px;
+            border: 2px solid #dddddd;
+            margin-top: 15px;
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cccccc;
+            font-weight: bold;
+        }
+        .image-preview-image {
+            display: none;
+            width: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>
+        Image Preview on File uploads
+    </h1>
+    <hr>
+    <input type="file" accept="image/*" name="inpFile" id="inpFile">
+    <div class="image-preview" id="imagePreview">
+        <img src="" alt="Image Preview" class="image-preview-image">
+        <span class="image-preview-default-text">Image Preview</span>
+    </div>
+
+    <script>
+        const inpFile = document.getElementById('inpFile');
+        const previewContainer = document.getElementById('imagePreview')
+        const previewImage = document.querySelector('.image-preview-image')
+        const previewDefaultText = document.querySelector('.image-preview-default-text')
+
+        inpFile.addEventListener('change', (e) => {
+            const file = e.target.files[0]
+            console.log(file);
+            if (file) {
+                const reader = new FileReader();
+
+                previewDefaultText.style.display = "none"
+                previewImage.style.display = "block"
+
+                reader.addEventListener('load', (event) => {
+                    previewImage.setAttribute('src', reader.result);
+                });
+                reader.readAsDataURL(file);
+                
+            } else {
+                previewDefaultText.style.display = null
+                previewImage.style.display = null
+                previewImage.setAttribute('src', "");
+            }
+        })
+    </script>
+</body>
+</html>
