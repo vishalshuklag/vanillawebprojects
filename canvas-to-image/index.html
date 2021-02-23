@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert HTML5 Canvas To Image</title>
+</head>
+<body>
+    <h1>HTML5 Canvas to Image</h1>
+    <button type="button" id="btnDisplay">Display</button>
+    <button type="button" id="btnDownload">Download</button>
+    <hr>
+    <canvas id="myCanvas" height="400px" width="250px" style="border: 2px solid #cccccc; float:left"></canvas>
+
+    <img src="" alt="Image" id="imgConverted" style="float: left; border: 2px solid #00f; margin-left: 10px">
+
+    <script>
+        const btnDisplay = document.getElementById('btnDisplay')
+        const btnDownload= document.getElementById('btnDownload')
+        const myCanvas= document.getElementById('myCanvas')
+        const imgConverted= document.getElementById('imgConverted')
+
+        const ctx = myCanvas.getContext('2d')
+
+        ctx.font = "italic "+26+"pt Arial ";
+        ctx.fillText("Vishal Shukla", 20,150);
+        ctx.fillStyle = "red";
+        ctx.fillRect(200, 150, 150, 75)
+
+        btnDisplay.addEventListener('click', (e) => {
+            const dataURI = myCanvas.toDataURL("image/jpeg");
+            // imgConverted.setAttribute('src', dataURI);
+            imgConverted.src = dataURI;
+        });
+
+        btnDownload.addEventListener('click', (e) => {
+            // IE/Edge support (PNG Only)
+            if (window.navigator.msSaveBlob) {
+                window.navigator.msSaveBlob(myCanvas.msToBlob(), "canvas-image.png")
+            } else {
+                const a = document.createElement('a');
+                document.body.appendChild(a)
+                a.href = myCanvas.toDataURL();
+                a.download = "canvas-image.png";
+                a.click();
+                document.body.removeChild(a)
+            }
+        });
+    </script>
+</body>
+</html>
